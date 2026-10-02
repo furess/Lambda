@@ -1,0 +1,5 @@
+[
+  { "ch": "λ", "name": "greek small letter lambda", "category": "alphabets" },
+  { "ch": "π", "name": "greek small letter pi", "category": "alphabets" },
+  { "ch": "∑", "name": "n-ary summation", "category": "math" }
+]
