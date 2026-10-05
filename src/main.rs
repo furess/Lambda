@@ -1,6 +1,11 @@
+use clap::Parser;
+use lambda::cli::{Cli, Command};
+
 fn main() {
-    let symbols = Lambda::data::load();
-    for s in &symbols {
-        println!("{}  {}  [{}]", s.ch, s.name, s.category);
+    let cli = Cli::parse();
+
+    match cli.command {
+        Command::List { category } => println!("list, category = {:?}", category),
+        Command::Categories => println!("categories"),
     }
 }
