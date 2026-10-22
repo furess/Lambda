@@ -1,52 +1,57 @@
 # lambda
 
-A small CLI tool written in rust for browsing special Unicode symbols: math, alphabets, currencies and more. A learning project for practicing Rust.
-The symbol database is embedded into the binary, so no internet connection or external files are needed.(this is the point)
+A small CLI tool written in Rust for browsing special Unicode symbols: Greek letters, math, physics and your own symbols. A learning project for practicing Rust.
+
+The built-in symbol tables are compiled into the binary, so no internet connection or external files are needed.
 
 ## Usage
 
 ```
-lambda list                      # show all symbols
-lambda list --category math      # show symbols from one category only
-lambda categories                # list available categories
+lambda                          # ASCII lambda + CPU, RAM and GPU info
+lambda -g                       # Greek alphabet, 7 symbols per row
+lambda -g -Up                   # same, in uppercase (also works as -U)
+lambda -m                       # mathematical symbols
+lambda -p                       # physical symbols
+lambda -c                       # your custom symbols
+lambda -a                       # everything
+lambda -g -m -Up                # combine categories and flags
+
+lambda list                     # symbols with names and categories
+lambda list --category math     # one category only
+lambda categories               # available categories and counts
 ```
 
-Example output:
+Example:
 
 ```
-λ  greek small letter lambda  [alphabets]
-∑  n-ary summation            [math]
-→  rightwards arrow           [arrows]
+$ lambda -g
+α   β   γ   δ   ε   ζ   η
+θ   ι   κ   λ   μ   ν   ξ
+ο   π   ρ   σ   τ   υ   φ
+χ   ψ   ω
 ```
+
+Running `lambda` with no arguments prints a small lambda next to live system information (CPU model, core count, CPU usage, RAM and GPU).
+
+## Adding your own symbols
+
+```
+lambda add λ lambda
+lambda add √ root
+lambda custom
+lambda remove root
+```
+
+Custom symbols are stored in `~/.config/lambda/symbols.json` (or `$XDG_CONFIG_HOME/lambda/symbols.json`). Adding a keyword that already exists updates its symbol instead of creating a duplicate.
+
+To add built-in symbols, edit the `GREEK`, `MATH` or `PHYSICS` arrays in `src/data.rs`.
+
 ## Installation
 
 Requires [Rust](https://rustup.rs) to be installed.
 
 ```
-git clone <repository url>
+git clone https://github.com/furess/Lambda/
 cd lambda
 cargo install --path .
 ```
-
-After that, the `lambda` command is available from any directory.
-
-## Adding symbols
-
-Open `data/symbols.json` and add an entry:
-
-```json
-{ "ch": "√", "name": "square root", "category": "math" }
-```
-
-rebuild the project and the symbol will show up in the list
-
-## Status
-
-Work in progress. Done: data loading. Planned: `list` and `categories` commands, column and output
-
-## Built with
-
-- [clap](https://crates.io/crates/clap): argument parsing
-- [serde](https://crates.io/crates/serde) and [serde_json](https://crates.io/crates/serde_json): JSON loading
-
-(dayum my first time writing a normal readme file)
